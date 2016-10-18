@@ -425,6 +425,8 @@ add_filter('get_term', 'qtranxf_useAdminTermLibJoin', 5, 2);
 add_filter('get_terms', 'qtranxf_useAdminTermLibJoin', 5, 3);
 
 //does someone use it?
+// No, I don't think so because $script_name is not defined in the function call anyway so it only returns
+// qtranxf_useTermLib($obj) always
 function qtranxf_useAdminTermLib($obj) {
 	//qtranxf_dbg_echo('qtranxf_useAdminTermLib: $obj: ',$obj,true);
 	if ($script_name==='/wp-admin/term.php' || ($script_name==='/wp-admin/edit-tags.php' &&

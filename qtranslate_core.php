@@ -163,7 +163,7 @@ function qtranxf_detect_language(&$url_info) {
 		//get language from HTTP_REFERER, if needed, and detect front- vs back-end
 		$http_referer = $_SERVER['HTTP_REFERER'];
 		$url_info['http_referer'] = $http_referer;
-		if(strpos($http_referer,'/wp-admin')!==FALSE){
+		if(strpos($http_referer,rtrim(parse_url(get_admin_url())['path'],'/'))!==FALSE){
 			$url_info['referer_admin'] = true;
 			if(!isset($url_info['doing_front_end'])) $url_info['doing_front_end'] = false;
 		}else{
@@ -768,7 +768,7 @@ function qtranxf_language_neutral_path($path) {
 		return $language_neutral_path_cache[$path];
 	}
 	//if(preg_match('#^/(wp-.*\.php|wp-admin/|xmlrpc.php|.*sitemap.*|robots.txt|oauth/)#', $path)){//sitemap.hml works ok without it
-	if(preg_match('#^/(wp-.*\.php|wp-login/|wp-admin/|xmlrpc.php|robots.txt|oauth/)#', $path)){
+	if(preg_match('#^/(wp-.*\.php|'.ltrim(parse_url(wp_login_url())['path'],'/').'|'.ltrim(parse_url(get_admin_url())['path'],'/').'|xmlrpc.php|robots.txt|oauth/)#', $path)){
 		$language_neutral_path_cache[$path] = true;
 		//qtranxf_dbg_log('qtranxf_language_neutral_path: preg_match: path='.$path);
 		return true;
